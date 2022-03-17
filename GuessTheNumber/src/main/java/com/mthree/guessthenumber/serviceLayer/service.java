@@ -23,14 +23,18 @@ public class service {
     public int addNewGame() {
         Game game = new Game();
         game.setTarget(generateAnswer());
+
         game = gameDao.addGame(game);
 
         return game.getId();
     }
 
     public List<Game> getAllGames() {
+        System.out.println("================ getallgames");
         List<Game> games = gameDao.getAllGames();
         for (Game game : games) {
+            System.out.println("====================");
+            System.out.println(game.getTarget());
             if (!game.getFinished()) {
                 game.setTarget("****");
             }
@@ -45,6 +49,8 @@ public class service {
 
     public Game getGameById(int gameId) {
         Game game = gameDao.getGame(gameId);
+
+
         if (!game.getFinished()) {
             game.setTarget("****");
         }

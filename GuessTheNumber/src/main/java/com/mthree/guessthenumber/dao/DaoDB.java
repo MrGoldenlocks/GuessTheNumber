@@ -5,6 +5,7 @@ package com.mthree.guessthenumber.dao;
 import com.mthree.guessthenumber.model.Game;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,7 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.sql.*;
 import java.util.List;
 
-
+@Repository
 public class DaoDB implements Dao {
 
     @Autowired
@@ -29,22 +30,14 @@ public class DaoDB implements Dao {
     @Override
     @Transactional
     public Game addGame(Game game) {
-        String INSERT_GAME = "INSERT INTO guessNumber(targetNumber) VALUES (?)";
+        String sql = "INSERT INTO guessNumber(targetNumber) VALUES (?)";
 
-        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbc.update(sql, game.getTarget());
 
-        jdbc.update((Connection conn) -> {
+        int newGameId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+        game.setGameId(newGameId);
 
-            PreparedStatement statement = conn.prepareStatement(
-                    INSERT_GAME,
-                    Statement.RETURN_GENERATED_KEYS);
 
-            statement.setString(1, game.getTarget());
-            return statement;
-
-        }, keyHolder);
-
-        game.setGameId(keyHolder.getKey().intValue());
 
         return game;
     }
