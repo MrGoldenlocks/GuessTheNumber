@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+@Repository
 public class RoundDaoDB implements RoundDao {
 
     @Autowired
@@ -23,7 +25,7 @@ public class RoundDaoDB implements RoundDao {
 
     @Override
     public Round addRound(Round round) {
-        final String sql = "INSERT INTO round(game_id, guess, result) VALUES(?,?,?)";
+        final String sql = "INSERT INTO guessNumberRound(game_id, guess, result) VALUES(?,?,?)";
         jdbc.update(sql, round.getId(), round.getGuess(), round.getResult());
 
         int newRoundId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
@@ -34,7 +36,7 @@ public class RoundDaoDB implements RoundDao {
     @Override
     public List<Round> getRoundsByGameId(int gameId) {
         try {
-            final String sql = "SELECT * FROM round "
+            final String sql = "SELECT * FROM guessNumberRound "
                     + "WHERE game_id = ? ORDER BY timeOfGuess";
             List<Round> rounds = jdbc.query(sql, new RoundMapper(), gameId);
             return rounds;

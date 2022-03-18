@@ -4,16 +4,21 @@ import com.mthree.guessthenumber.dao.Dao;
 import com.mthree.guessthenumber.dao.RoundDao;
 import com.mthree.guessthenumber.model.Game;
 import com.mthree.guessthenumber.model.Round;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Random;
 
-@Component
-public class service {
+@Service
+public class serviceLayer {
 
+    @Autowired
     Dao gameDao;
 
+    @Autowired
     RoundDao roundDao;
 
     public Game addGame(Game game) {
@@ -30,11 +35,8 @@ public class service {
     }
 
     public List<Game> getAllGames() {
-        System.out.println("================ getallgames");
         List<Game> games = gameDao.getAllGames();
         for (Game game : games) {
-            System.out.println("====================");
-            System.out.println(game.getTarget());
             if (!game.getFinished()) {
                 game.setTarget("****");
             }

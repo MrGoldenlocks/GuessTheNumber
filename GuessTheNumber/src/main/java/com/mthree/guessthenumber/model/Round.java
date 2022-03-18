@@ -40,11 +40,11 @@ public class Round {
     }
 
     public void setGuess(String guess) {
-        this.guess = Round.this.guess;
+        this.guess = guess;
     }
 
     public void setResult(String result) {
-        this.result = Round.this.result;
+        this.result = result;
     }
 
     public int getId(){

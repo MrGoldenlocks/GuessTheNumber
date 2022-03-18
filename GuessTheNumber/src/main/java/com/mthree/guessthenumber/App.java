@@ -6,7 +6,6 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-//@ComponentScan("com.mthree.guessthenumber.serviceLayer")
 public class App {
 
     public static void main(String[] args) {

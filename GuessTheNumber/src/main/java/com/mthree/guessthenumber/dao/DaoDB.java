@@ -19,12 +19,6 @@ public class DaoDB implements Dao {
     @Autowired
     JdbcTemplate jdbc;
 
-    @Autowired
-    public DaoDB(JdbcTemplate jdbcTemplate) {
-        this.jdbc = jdbcTemplate;
-    }
-
-
 
 
     @Override
@@ -57,7 +51,9 @@ public class DaoDB implements Dao {
     public List<Game> getAllGames() {
 
         final String sql = "SELECT id, targetNumber, finished FROM guessNumber;";
+
         return jdbc.query(sql, new GameMapper());
+
 
     }
 
