@@ -97,22 +97,23 @@ public class serviceLayer {
     }
 
     public String generateAnswer() {
-        Random rnd = new Random();
-        int digit1 = rnd.nextInt(10);
 
-        int digit2 = rnd.nextInt(10);
+        Random rand = new Random();
+        int digit1 = rand.nextInt(10);
+
+        int digit2 = rand.nextInt(10);
         while (digit2 == digit1) {
-            digit2 = rnd.nextInt(10);
+            digit2 = rand.nextInt(10);
         }
 
-        int digit3 = rnd.nextInt(10);
+        int digit3 = rand.nextInt(10);
         while (digit3 == digit2 || digit3 == digit1) {
-            digit3 = rnd.nextInt(10);
+            digit3 = rand.nextInt(10);
         }
 
-        int digit4 = rnd.nextInt(10);
+        int digit4 = rand.nextInt(10);
         while (digit4 == digit3 || digit4 == digit2 || digit4 == digit1) {
-            digit4 = rnd.nextInt(10);
+            digit4 = rand.nextInt(10);
         }
 
         String answer = String.valueOf(digit1) + String.valueOf(digit2)
